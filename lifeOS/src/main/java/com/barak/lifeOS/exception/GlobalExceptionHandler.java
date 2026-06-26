@@ -84,11 +84,11 @@ public class GlobalExceptionHandler {
                 "Content-Type '" + ex.getContentType() + "' is not supported. Use application/json");
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
-                "An unexpected error occurred. Please try again later");
-    }
+    // @ExceptionHandler(Exception.class)
+    // public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
+    //     return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
+    //             "An unexpected error occurred. Please try again later");
+    // }
 
     @ExceptionHandler(DisabledException.class)
     public ResponseEntity<ErrorResponse> handleDisabled(DisabledException ex) {
