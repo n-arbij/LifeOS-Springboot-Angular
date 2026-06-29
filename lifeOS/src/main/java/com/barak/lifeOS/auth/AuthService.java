@@ -1,5 +1,8 @@
 package com.barak.lifeOS.auth;
 
+import java.time.DateTimeException;
+import java.time.ZoneId;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +31,8 @@ public class AuthService {
         if(userRepository.existsByUsername(dto.getUsername())){
             throw new DuplicateResourceException("Username already in use");
         }
-
+        
+        validateTimezone(dto.getTimezone());
         passwordValidation.validate(dto.getPassword());
 
         User user = new User();
@@ -36,6 +40,7 @@ public class AuthService {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setTimezone(dto.getTimezone());
         userRepository.save(user);
 
         String token = jwtUtil.generateToken(dto.getUsername());
@@ -48,5 +53,13 @@ public class AuthService {
         );
         String token = jwtUtil.generateToken(dto.getUsername());
         return new AuthDto.Response(token, dto.getUsername());
+    }
+
+    private void validateTimezone(String timezone) {
+        try {
+            ZoneId.of(timezone);
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException("Invalid timezone: " + timezone);
+        }
     }
 }
