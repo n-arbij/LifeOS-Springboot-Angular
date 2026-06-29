@@ -48,12 +48,12 @@ public class EventService {
             throw new IllegalArgumentException("From date must be before to date");
         }
 
-        List<Event> candidates = eventRepository
-            .findCandidateEvents(
-                user,
-                from.atStartOfDay().toInstant(ZoneOffset.UTC),
-                to.atStartOfDay().toInstant(ZoneOffset.UTC)
-            );
+        Instant rangeStart = from.atStartOfDay(userZone).toInstant();
+        Instant rangeEnd   = to.atTime(23, 59, 59).atZone(userZone).toInstant();
+
+        List<Event> candidates = eventRepository.findCandidateEvents(
+            user, rangeEnd, rangeStart
+        );
 
         // Expand each event — non-recurring events return 0 or 1 occurrence,
         // recurring events return N occurrences within the range
