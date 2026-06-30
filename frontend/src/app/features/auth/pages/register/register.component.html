@@ -1,83 +1,92 @@
 <div class="register-container">
-    <h1>Create Account</h1>
-
-    <p class="subtitle">
-        Start organizing your life with LifeOS.
-    </p>
+    <div class="container-header">
+        <h3>Welcome Aboard!</h3>
+    
+        <p id="subtitle">
+            Start organizing your life with LifeOS.
+        </p>
+    </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-        <div class="form-group">
-            <label>First Name</label>
-
-            <input
-                type="text"
-                formControlName="firstName">
+        <div class="input-fields">
+            <div class="sect1">
+                <div class="form-group">
+                    <input
+                        type="text"
+                        formControlName="firstName"
+                        placeholder="First Name"
+                        required>
+                </div>
+        
+                <div class="form-group">
+                    <input
+                        type="text"
+                        formControlName="lastName"
+                        placeholder="Last Name"
+                        required>
+                </div>
+        
+                <div class="form-group">
+                    <input
+                        type="text"
+                        formControlName="username"
+                        placeholder="Username"
+                        required>
+                </div>
+            </div>
+    
+            <div class="sect2">
+                <div class="form-group">
+                    <input
+                        type="email"
+                        formControlName="email"
+                        placeholder="Email Address"
+                        required>
+                </div>
+        
+                <div class="form-group">
+                    <input
+                        [type]="showPassword ? 'text' : 'password'"
+                        formControlName="password"
+                        placeholder="Password"
+                        required>
+                </div>
+        
+                <div class="form-group">
+                    <input
+                        [type]="showConfirmPassword ? 'text' : 'password'"
+                        formControlName="confirmPassword"
+                        placeholder="Confirm Password"
+                        required>
+                </div>
+                @if(registerForm.hasError('passwordMismatch')){
+                    <small>
+                        Passwords do not match.
+                    </small>
+                }
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Last Name</label>
-
-            <input
-                type="text"
-                formControlName="lastName">
+        <div class="terms-submit">
+            <label class="terms">
+                <input
+                    type="checkbox"
+                    formControlName="acceptTerms">
+    
+                I agree to the <a href="#">Terms and Conditions</a> .
+    
+            </label>
+    
+            <button
+                type="submit"
+                [disabled]="loading || registerForm.invalid">
+    
+                {{ loading ? 'Creating Account...' : 'Create Account' }}
+            </button>
         </div>
-
-        <div class="form-group">
-            <label>Username</label>
-
-            <input
-                type="text"
-                formControlName="username">
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-
-            <input
-                type="email"
-                formControlName="email">
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-
-            <input
-                [type]="showPassword ? 'text' : 'password'"
-                formControlName="password">
-        </div>
-
-        <div class="form-group">
-            <label>Confirm Password</label>
-
-            <input
-                [type]="showConfirmPassword ? 'text' : 'password'"
-                formControlName="confirmPassword">
-        </div>
-
-        @if(registerForm.hasError('passwordMismatch')){
-            <small>
-                Passwords do not match.
-            </small>
-        }
-
-        <label class="terms">
-            <input
-                type="checkbox"
-                formControlName="acceptTerms">
-
-            I agree to the Terms and Conditions.
-
-        </label>
-
-        <button
-            type="submit"
-            [disabled]="loading || registerForm.invalid">
-
-            {{ loading ? 'Creating Account...' : 'Create Account' }}
-        </button>
     </form>
 
-    <p>
+    <p class="redirect">
         Already have an account?
         <a routerLink="/login">
             Sign In

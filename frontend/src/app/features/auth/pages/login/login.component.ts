@@ -31,7 +31,6 @@ export class LoginComponent {
     private route = inject(ActivatedRoute);
 
     loading = false;
-    showPassword = false;
 
     loginForm = this.fb.group({
         username: ['', [Validators.required]],
@@ -44,10 +43,6 @@ export class LoginComponent {
     }
     get password() {
         return this.loginForm.controls.password;
-    }
-
-    togglePassword() {
-        this.showPassword = !this.showPassword;
     }
 
     login() {

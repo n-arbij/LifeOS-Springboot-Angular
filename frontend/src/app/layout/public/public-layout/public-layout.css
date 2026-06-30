@@ -1,64 +1,11 @@
-* {
-    box-sizing: border-box;
-}
 
 .container {
     display: flex;
     min-height: 100vh;
-}
-
-.left-panel {
-    flex: 1;
-    background: #2563eb;
-    color: white;
-
-    display: flex;
-    justify-content: center;
     align-items: center;
-
-    padding: 60px;
-}
-
-.branding {
-    max-width: 450px;
-}
-
-.logo {
-    width: 90px;
-    margin-bottom: 20px;
-}
-
-.branding h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.branding p {
-    font-size: 20px;
-    line-height: 1.6;
-}
-
-.right-panel {
-    width: 500px;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 40px;
-    background: #ffffff;
 }
 
 @media (max-width: 992px) {
-
-    .container {
-        flex-direction: column;
-    }
-
-    .left-panel {
-        display: none;
-    }
-
-    .right-panel {
-        width: 100%;
-    }
-
+    
 }

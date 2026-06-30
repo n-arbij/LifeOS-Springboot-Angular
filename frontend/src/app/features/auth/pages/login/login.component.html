@@ -1,45 +1,27 @@
 <div class="login-container">
-    <h1>Welcome Back</h1>
-
-    <p class="subtitle">
-        Sign in to continue to LifeOS
-    </p>
+    <div class="container-header">
+        <h3>Yooo, welcome back!</h3>
+    
+        <p class="redirect">
+            First time here?
+            <a routerLink="/register">Sign up</a>
+        </p>
+    </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="form-group">
-            <label>Username</label>
-
             <input
                 type="text"
                 formControlName="username"
-                placeholder="Enter your username">
-
-            @if(username.invalid && username.touched){
-                <small>Email is required.</small>
-            }
+                placeholder="Username">
 
         </div>
 
         <div class="form-group">
-            <label>Password</label>
-
             <input
-                [type]="showPassword ? 'text' : 'password'"
+                type="password"
                 formControlName="password"
                 placeholder="Password">
-
-            <button
-                type="button"
-                class="toggle"
-                (click)="togglePassword()">
-
-                {{ showPassword ? 'Hide' : 'Show' }}
-
-            </button>
-
-            @if(password.invalid && password.touched){
-                <small>Password is required.</small>
-            }
         </div>
 
         <div class="remember">
@@ -50,10 +32,6 @@
 
                 Remember me
             </label>
-
-            <a routerLink="/forgot-password">
-                Forgot Password?
-            </a>
         </div>
 
         <button
@@ -62,11 +40,13 @@
 
             {{ loading ? 'Signing In...' : 'Sign In' }}
         </button>
+        <div class="forgot-password">
+            <a routerLink="/forgot-password">
+                Forgot Password?
+            </a>
+        </div>
     </form>
 
-    <p class="register">
-        Don't have an account?
-        <a routerLink="/register">Register</a>
-    </p>
+   
 
 </div>
