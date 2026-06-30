@@ -1,5 +1,7 @@
 package com.barak.lifeOS.auth;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -47,8 +49,10 @@ public class AuthDto {
     @Data
     @AllArgsConstructor
     public static class Response{
-        private String username;
         private String token;
         private String refresh;
+        private UserSummary summary;
     }
+
+    public record UserSummary(UUID id, String email, String username){}
 }

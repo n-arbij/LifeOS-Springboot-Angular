@@ -47,7 +47,7 @@ public class AuthService {
 
         String accessToken = jwtUtil.generateToken(dto.getUsername());
         RefreshToken refreshToken = refreshTokenService.create(user);
-        return new AuthDto.Response(dto.getUsername(), accessToken, refreshToken.getToken());
+        return buildResponse(user, accessToken, refreshToken.getToken());
     }
 
     public AuthDto.Response login(AuthDto.LoginDto dto){
@@ -59,9 +59,9 @@ public class AuthService {
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         String accessToken = jwtUtil.generateToken(dto.getUsername());
-        RefreshToken refresh = refreshTokenService.create(user);
+        RefreshToken refreshToken = refreshTokenService.create(user);
 
-        return new AuthDto.Response(dto.getUsername(), accessToken, refresh.getToken());
+        return buildResponse(user, accessToken, refreshToken.getToken());
     }
 
     public AuthDto.Response refresh(AuthDto.RefreshRequest request){
@@ -91,7 +91,11 @@ public class AuthService {
         return new AuthDto.Response(
             accessToken,
             refreshToken,
-            user.getUsername()
+            new AuthDto.UserSummary(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername()
+            )
         );
     }
 }
