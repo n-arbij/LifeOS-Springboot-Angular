@@ -41,10 +41,10 @@ public class SecurityConfig {
             .csrf(csfr -> csfr.disable())
 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/dashboard/admin").hasRole("ADMIN")
-                .requestMatchers("/api/dashboard/user").hasRole("USER")
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                // .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                // .requestMatchers("/api/v1/dashboard/admin").hasRole("ADMIN")
+                // .requestMatchers("/api/v1/dashboard/user").hasRole("USER")
                 .anyRequest().authenticated()   
             )
 
