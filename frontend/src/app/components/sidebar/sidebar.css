@@ -1,12 +1,19 @@
 .sidebar{
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 75px;
-    height: 100lvh;
+    padding: 2em 0 1.5em;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
-
+.bx-code-alt{
+    color: #fff;
+    font-size: 25px;
+}
 nav{
     display: flex;
     flex-direction: column;
@@ -66,9 +73,4 @@ nav{
 .log-out a:hover .labels {
     opacity: 1;
     visibility: visible;
-}
-
-.log-out{
-    position: absolute;
-    bottom: 10px;
 }
