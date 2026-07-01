@@ -1,0 +1,25 @@
+<div class="sidebar">
+    <nav>
+        @for(item of sidebarItems; track item.route) {
+            <a
+                [routerLink]="item.route"
+                routerLinkActive="active"
+                class="sidebar-item">
+                <span class="icons">
+                    <i class='bx bxs-{{ item.icon }}'></i>
+                </span>
+                <span class="labels">
+                    {{ item.label }}
+                </span>
+            </a>
+        }
+    </nav>
+    <div class="log-out">
+        <a href="logout" (click)="logout(); $event.preventDefault()">
+            <span class="icons">
+                <i class="bx bx-log-out"></i>
+            </span>
+            <span class="labels">Logout</span>
+        </a>
+    </div>
+</div>

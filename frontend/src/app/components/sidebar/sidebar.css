@@ -1,0 +1,74 @@
+.sidebar{
+    position: relative;
+    width: 75px;
+    height: 100lvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.sidebar-item, .log-out a{
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    color: #919191;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.sidebar-item:hover, .log-out a:hover{
+    background: rgba(255,255,255,.125);
+    border-color: rgba(255,255,255,.25);
+    color: #fff;
+}
+
+.sidebar-item.active {
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,255,255,.1);
+    color: #fff;
+}
+
+.icons {
+    font-size: 26px;
+}
+
+.labels {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    background: transparent;
+    padding: 8px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+.sidebar-item:hover .labels,
+.log-out a:hover .labels {
+    opacity: 1;
+    visibility: visible;
+}
+
+.log-out{
+    position: absolute;
+    bottom: 10px;
+}
