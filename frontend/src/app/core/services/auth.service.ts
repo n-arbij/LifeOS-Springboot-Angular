@@ -23,19 +23,17 @@ export class AuthService{
 
     readonly currentUser = this.currentUserSignal.asReadonly();
 
-    readonly authenticated = computed(() => {
-
+    authenticated (): boolean {
         const token = this.tokenService.getAccessToken();
-
-        if(!token){
+        if(token == null){
             return false;
         }
 
         return(
             this.currentUserSignal() !== null &&
-            this.tokenService.isAccessTokenExpired()
+            this.tokenService.isAccessTokenExpired() == false
         )
-    })
+    }
 
     login(request: LoginRequest): Observable<AuthResponse> {
         return this.http

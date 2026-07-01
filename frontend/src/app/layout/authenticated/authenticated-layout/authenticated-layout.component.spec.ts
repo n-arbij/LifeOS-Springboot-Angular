@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AuthenticatedLayoutComponent } from './authenticated-layout.component';
+
+describe('AuthenticatedLayoutComponent', () => {
+  let component: AuthenticatedLayoutComponent;
+  let fixture: ComponentFixture<AuthenticatedLayoutComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AuthenticatedLayoutComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AuthenticatedLayoutComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

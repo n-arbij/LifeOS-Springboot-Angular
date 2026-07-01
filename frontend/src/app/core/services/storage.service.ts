@@ -9,7 +9,15 @@ export class StorageService {
 
     get<T> (key: string): T | null {
         const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : null;
+        if(!value || value === 'undefined') {
+            return null;
+        }
+        try{
+            return JSON.parse(value);
+        }catch (e) {
+            console.error('Invalid JSON in storage for key: ', key, e);
+            return null;
+        }
     }
 
     remove(key: string) : void {

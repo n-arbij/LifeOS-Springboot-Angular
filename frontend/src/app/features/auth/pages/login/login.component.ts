@@ -48,7 +48,6 @@ export class LoginComponent {
     login() {
         if (this.loginForm.invalid) {
             this.loginForm.markAllAsTouched();
-
             return;
         }
 
@@ -66,11 +65,9 @@ export class LoginComponent {
             .subscribe({
                 next: () => {
                     const returnUrl =
-                        this.route.snapshot.queryParamMap.get('returnUrl');
+                        this.route.snapshot.queryParamMap.get('returnUrl') ?? '/app/dashboard';
 
-                    this.router.navigateByUrl(
-                        returnUrl ?? '/dashboard'
-                    );
+                    this.router.navigateByUrl(returnUrl);
                 },
 
                 error: error => {

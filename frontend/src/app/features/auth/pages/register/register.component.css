@@ -98,3 +98,13 @@ button[type="submit"]:disabled{
 .forgot-password a{
     color: #f5f5f5;
 }
+
+@media (max-width: 992px) {
+    .register-container{
+        padding: 8em 0 4em;
+    }
+    .input-fields{
+        flex-direction: column;
+        height: auto;
+    }
+}
