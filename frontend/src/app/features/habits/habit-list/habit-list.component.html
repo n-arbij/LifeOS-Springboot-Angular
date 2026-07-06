@@ -1,0 +1,38 @@
+<div class="habit-list-page">
+
+  <div class="page-header">
+    <h1>Habits</h1>
+  </div>
+
+  <!-- Week header -->
+  <div class="week-header">
+    <div class="habit-name-col"></div>
+    <div class="week-days">
+      @for (day of weekDays; track day.date) {
+        <div class="week-day-label" [class.today]="day.date === todayKey">
+          <span class="day-name">{{ day.label }}</span>
+        </div>
+      }
+    </div>
+    <div class="streak-col">Streak</div>
+  </div>
+
+  @if (loading()) {
+    <div class="state-msg">Loading habits…</div>
+  } @else if (error()) {
+    <div class="state-msg error">{{ error() }}</div>
+  } @else if (habits().length === 0) {
+    <div class="state-msg">No active habits. Add one to get started.</div>
+  } @else {
+    <div class="habit-rows">
+      @for (habit of habits(); track habit.id) {
+        <app-habit-card
+          [habit]="habit"
+          [weekDays]="weekDays"
+          (logged)="onLogged($event)">
+        </app-habit-card>
+      }
+    </div>
+  }
+
+</div>
