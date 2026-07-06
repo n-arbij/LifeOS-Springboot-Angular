@@ -1,4 +1,9 @@
-import { User } from "./user.model";
+
+export interface User {
+    id: string;
+    email: string;
+    username: string;
+}
 
 export interface LoginRequest{
     username: string;
@@ -21,5 +26,11 @@ export interface AuthResponse{
 }
 
 export interface RefreshRequest{
-    refreshToken: string
+    refresh: string
+}
+
+export interface JwtPayload {
+  sub: string;
+  iat: number;
+  exp: number;
 }
