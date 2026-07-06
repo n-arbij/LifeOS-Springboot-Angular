@@ -71,8 +71,8 @@ export class AuthService {
     this.storageService.remove('user');
     this.currentUserSignal.set(null);
 
-    if (this.router.url !== '/auth') {
-      this.router.navigate(['/auth']);
+    if (this.router.url !== '/login') {
+      this.router.navigate(['/login']);
     }
   }
 
