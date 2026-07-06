@@ -49,6 +49,7 @@
     border: 1px solid rgba(255,255,255,.125);
     border-radius: 4px;
     padding: 10px 15px;
+    margin-bottom: 20px;
 }
 .journal-entry span{
     color: gray;
@@ -77,6 +78,11 @@
 }
 .input-div{
     width: 100%;
+}
+select{
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    
 }
 input[type="text"], textarea{
     border: none;
@@ -114,6 +120,10 @@ textarea::placeholder{
     border-radius: 20px;
     color: #fff;
     cursor: pointer;
+}
+button[type="submit"]:disabled{
+    opacity: 0.7;
+    cursor: auto;
 }
 .submit button i{
     font-size: 18px;
