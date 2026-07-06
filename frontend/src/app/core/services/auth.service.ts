@@ -4,142 +4,119 @@ import { Router } from "@angular/router";
 import { TokenService } from "./token.service";
 import { StorageService } from "./storage.service";
 import { environment } from "../../../environments/environment";
-import { AuthResponse, LoginRequest, RefreshRequest, RegisterRequest } from "../models/auth.model";
-import { catchError, map, Observable, of, take, tap, throwError } from "rxjs";
-import { User } from "../models/user.model";
+import { AuthResponse, LoginRequest, RefreshRequest, RegisterRequest, User } from "../models/auth.model";
+import { catchError, map, Observable, of, tap, throwError } from "rxjs";
 
-@Injectable({providedIn: 'root'})
-export class AuthService{
-    private http = inject(HttpClient);
-    private router = inject(Router);
-    private tokenService = inject(TokenService);
-    private storageService = inject(StorageService);
-    
-    private readonly API = `${environment.apiUrl}/auth`;
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private tokenService = inject(TokenService);
+  private storageService = inject(StorageService);
 
-    private currentUserSignal = signal<User | null>(
-        this.storageService.get<User>('user')
-    )
+  private readonly API = `${environment.apiUrl}/auth`;
 
-    readonly currentUser = this.currentUserSignal.asReadonly();
+  private currentUserSignal = signal<User | null>(
+    this.storageService.get<User>('user')
+  );
 
-    authenticated (): boolean {
-        const token = this.tokenService.getAccessToken();
-        if(token == null){
-            return false;
-        }
+  readonly currentUser = this.currentUserSignal.asReadonly();
 
-        return(
-            this.currentUserSignal() !== null &&
-            this.tokenService.isAccessTokenExpired() == false
-        )
+  authenticated(): boolean {
+    const token = this.tokenService.getAccessToken();
+    if (token === null) return false;
+    return (
+      this.currentUserSignal() !== null &&
+      this.tokenService.isAccessTokenExpired() === false
+    );
+  }
+
+  login(request: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API}/login`, request).pipe(
+      tap(response => this.handleSuccess(response))
+    );
+  }
+
+  register(request: RegisterRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API}/register`, request).pipe(
+      tap(response => this.handleSuccess(response))
+    );
+  }
+
+  refreshToken(): Observable<AuthResponse> {
+    const refresh = this.tokenService.getRefreshToken();
+
+    if (!refresh) {
+      this.logout();
+      return throwError(() => new Error('Refresh token not found.'));
     }
 
-    login(request: LoginRequest): Observable<AuthResponse> {
-        return this.http
-            .post<AuthResponse>(`${this.API}/login`, request)
-            .pipe(
-                tap( response => {
-                    this.tokenService.setAccessToken(response.token);
-                    this.tokenService.setRefreshToken(response.refresh);
-                    this.storageService.set('user', response.user);
-                    this.currentUserSignal.set(response.user)
-                })
-            );
+    if (this.tokenService.isRefreshTokenExpired()) {
+      this.logout();
+      return throwError(() => new Error('Refresh token has expired.'));
     }
 
-    register(request: RegisterRequest): Observable<AuthResponse> {
-        return this.http
-            .post<AuthResponse>(`${this.API}/register`, request)
-            .pipe(
-                tap(response => {
-                    this.tokenService.setAccessToken(response.token);
-                    this.tokenService.setRefreshToken(response.refresh);
-                    this.storageService.set('user', response.user);
-                    this.currentUserSignal.set(response.user)
-                })
-            );
+    const body: RefreshRequest = { refresh };  // ← correct field name
+
+    return this.http.post<AuthResponse>(`${this.API}/refresh`, body).pipe(
+        tap(response => {
+        this.tokenService.setAccessToken(response.token);
+        this.tokenService.setRefreshToken(response.refresh);
+      })
+    );
+  }
+
+  logout(): void {
+    this.tokenService.clear();
+    this.storageService.remove('user');
+    this.currentUserSignal.set(null);
+
+    if (this.router.url !== '/auth') {
+      this.router.navigate(['/auth']);
+    }
+  }
+
+  initialize(): Observable<void> {
+    const user = this.storageService.get<User>('user');
+    if (user) this.currentUserSignal.set(user);
+
+    const refreshToken = this.tokenService.getRefreshToken();
+    if (!refreshToken) return of(void 0);
+
+    if (this.tokenService.isRefreshTokenExpired()) {
+      this.logout();
+      return of(void 0);
     }
 
-    refreshToken(): Observable<AuthResponse> {
-
-        const refreshToken = this.tokenService.getRefreshToken();
-
-        if(!refreshToken) {
-            this.logout();
-
-            return throwError(() => 
-                new Error('Refresh token not found.')
-            )
-        }
-
-        if(this.tokenService.isRefreshTokenExpired()){
-            this.logout();
-
-            return throwError(() => 
-                new Error('Refresh token has expired.')
-            )
-        }
-
-        return this.http
-            .post<AuthResponse>(`${this.API}/refresh`, 
-                {
-                    refreshToken: this.tokenService.getRefreshToken()
-                }
-            ).pipe(
-                tap(response => {
-                    this.tokenService.setAccessToken(response.token);
-                    this.tokenService.setRefreshToken(response.refresh);
-                })
-            );
+    if (!this.tokenService.isAccessTokenExpired()) {
+      return of(void 0);
     }
 
-    logout(): void {
-        this.tokenService.clear();
-        this.storageService.remove('user');
-        this.currentUserSignal.set(null);
+    return this.refreshToken().pipe(
+      map(() => void 0),
+      catchError(() => {
+        this.logout();
+        return of(void 0);
+      })
+    );
+  }
 
-        if(this.router.url !== '/login'){
-            this.router.navigate(['/login']);
-        }
-    }
+  getCurrentUser(): User | null {
+    return this.currentUserSignal();
+  }
 
-    initialize(): Observable<void> {
-        const user = this.storageService.get<User>('user');
+  getAccessToken(): string | null {
+    return this.tokenService.getAccessToken();
+  }
 
-        if(user){
-            this.currentUserSignal.set(user);
-        }
+  isAccessTokenExpired(): boolean {
+    return this.tokenService.isAccessTokenExpired();
+  }
 
-        const refreshToken = this.tokenService.getRefreshToken();
-
-        if(!refreshToken){
-            return of(void 0);
-        }
-
-        if(this.tokenService.isRefreshTokenExpired()){
-            this.logout();
-            return of(void 0)
-        }
-
-        return this.refreshToken().pipe(
-            map(() => void 0),
-            catchError(() => {
-                this.logout();
-                return of(void 0);
-            })
-        );
-    }
-
-    getCurrentUser(): User | null{
-        return this.currentUserSignal();
-    }
-
-    getAccessToken(): string | null{
-        return this.tokenService.getAccessToken();
-    }
-
-    isAccessTokenExpired(): boolean {
-        return this.tokenService.isAccessTokenExpired();
-    }
+  private handleSuccess(response: AuthResponse): void {
+    this.tokenService.setAccessToken(response.token);
+    this.tokenService.setRefreshToken(response.refresh);
+    this.storageService.set('user', response.user);
+    this.currentUserSignal.set(response.user);
+  }
 }

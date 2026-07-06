@@ -1,0 +1,49 @@
+<section class="journal-wrapper">
+    <div class="journal-display">
+        <div class="journal-list-header">
+            <h1>Journals</h1>
+            <button type="button" (click)="newEntry()">+</button>
+        </div>
+        <div class="journal-list">
+             @if (loading()) {
+                <p class="info">Loading entries...</p>
+            }
+            @for (entry of entries(); track entry.id) {
+                <a href="#"
+                   class="journal-entry"
+                   [class.active]="selectedEntry()?.id === entry.id"
+                   (click)="selectEntry($event, entry.id)">
+                    <span class="entry-date">{{ formatDate(entry.entryDate) }}</span>
+                    <p>{{ entry.content }}</p>
+                </a>
+            }
+            @if (!loading() && entries().length === 0) {
+                <p class="info">No entries yet.</p>
+            }
+        </div>
+    </div>
+    <div class="journal-display-form">
+        <form [formGroup]="journalForm" (ngSubmit)="onSubmit()">
+            <div class="form-input">
+                <div class="input-div">
+                    <input type="text" formControlName="title" placeholder="Title">
+                </div>
+                <div class="input-div">
+                    <select formControlName="mood">
+                        @for (m of moods; track m) {
+                            <option [value]="m">{{ m }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-div">
+                    <textarea formControlName="content" placeholder="How was your day?"></textarea>
+                </div>
+            </div>
+            <div class="submit">
+                <button type="submit" [disabled]="journalForm.invalid || saving()">
+                    <i class='bx bx-save'></i>{{ saving() ? 'Saving...' : 'Save' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
