@@ -1,0 +1,126 @@
+.dashboard {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color, #FFFCF2);
+  margin: 0 0 4px;
+}
+
+.dashboard-date {
+  font-size: 14px;
+  color: var(--text-secondary, #CCC5B9);
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.widget {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.widget-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color, #FFFCF2);
+  margin: 0;
+}
+
+.widget-link {
+  font-size: 12px;
+  color: #EB5E28;
+  text-decoration: none;
+}
+
+.widget-link:hover {
+  text-decoration: underline;
+}
+
+.widget-loading,
+.widget-error,
+.widget-empty {
+  font-size: 13px;
+  color: var(--text-secondary, #CCC5B9);
+  padding: 16px 0;
+}
+
+.widget-error {
+  color: #e87575;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.event-color-bar {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.event-row-body {
+  padding: 10px 10px 10px 0;
+  flex: 1;
+}
+
+.event-row-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color, #FFFCF2);
+  margin-bottom: 4px;
+}
+
+.event-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary, #CCC5B9);
+}
+
+.today-badge {
+  background: rgba(235, 94, 40, 0.15);
+  color: #EB5E28;
+  border: 1px solid rgba(235, 94, 40, 0.25);
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.dot-separator {
+  color: rgba(255, 255, 255, 0.2);
+}

@@ -51,6 +51,12 @@ export const routes: Routes = [
                 loadComponent: () => 
                     import('./features/journal/journal.component')
                         .then(c => c.JournalComponent)
+            },
+            {
+                path: 'events',
+                loadComponent: () => 
+                    import('./features/event/event.component')
+                        .then(c => c.EventComponent)
             }
         ]
     }

@@ -1,0 +1,60 @@
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p class="dashboard-date">
+      {{ today | date: 'EEEE, MMMM d' }}
+    </p>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <!-- Events widget -->
+    <div class="widget">
+      <div class="widget-header">
+        <h2>Upcoming Events</h2>
+        <a routerLink="/calendar" class="widget-link">View calendar</a>
+      </div>
+
+      @if (loading()) {
+        <div class="widget-loading">Loading events…</div>
+      } @else if (error()) {
+        <div class="widget-error">{{ error() }}</div>
+      } @else if (upcomingEvents().length === 0) {
+        <div class="widget-empty">No upcoming events this month.</div>
+      } @else {
+        <div class="event-list">
+          @for (event of upcomingEvents(); track event.id) {
+            <div class="event-row">
+              <div
+                class="event-color-bar"
+                [style.background-color]="event.color ?? '#EB5E28'">
+              </div>
+              <div class="event-row-body">
+                <div class="event-row-title">{{ event.title }}</div>
+                <div class="event-row-meta">
+                  @if (isToday(event.startTime)) {
+                    <span class="today-badge">Today</span>
+                  } @else {
+                    <span>{{ formatDate(event.startTime) }}</span>
+                  }
+                  @if (!event.allDay) {
+                    <span class="dot-separator">·</span>
+                    <span>{{ formatTime(event.startTime) }}</span>
+                  } @else {
+                    <span class="dot-separator">·</span>
+                    <span>All day</span>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+
+    <!-- More widgets go here -->
+
+  </div>
+</div>
