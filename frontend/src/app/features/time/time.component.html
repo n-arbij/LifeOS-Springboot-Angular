@@ -1,0 +1,30 @@
+<div class="time-page">
+
+  <div class="time-header">
+    <h1>Time</h1>
+  </div>
+
+  <div class="time-body">
+    <div class="tab-row">
+      <button
+        [class.active]="activeTab() === 'pomodoro'"
+        (click)="setTab('pomodoro')">
+        Pomodoro
+      </button>
+      <button
+        [class.active]="activeTab() === 'stopwatch'"
+        (click)="setTab('stopwatch')">
+        Stopwatch
+      </button>
+    </div>
+  
+    @if (activeTab() === 'pomodoro') {
+      <app-pomodoro />
+    }
+  
+    @if (activeTab() === 'stopwatch') {
+      <app-stopwatch />
+    }
+  </div>
+
+</div>

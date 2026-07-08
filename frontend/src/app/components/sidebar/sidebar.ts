@@ -40,6 +40,11 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
         route: '/app/journals'
     },
     {
+        label: 'Timer',
+        icon: 'timer',
+        route: '/app/time'
+    },
+    {
         label: 'Settings',
         icon: 'cog',
         route: '/app/settings'

@@ -60,10 +60,15 @@ export const routes: Routes = [
             },
             {
                 path: 'habits',
-                canActivate: [authGuard],
                 loadComponent: () =>
                     import('./features/habits/habit-list/habit-list.component')
                     .then(m => m.HabitListComponent)
+            },
+            {
+                path: 'time',
+                loadComponent: () => 
+                    import('./features/time/time.component')
+                        .then(m => m.TimeComponent)
             }
         ]
     }

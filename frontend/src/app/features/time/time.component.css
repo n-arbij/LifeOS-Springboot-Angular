@@ -1,0 +1,47 @@
+.time-page {
+  padding: 32px;
+  max-width: 600px;
+}
+
+.time-header {
+  margin-bottom: 24px;
+}
+
+.time-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FFFCF2;
+  margin: 0;
+}
+.time-body{
+  display: inline-flex;
+  gap: 5em;
+}
+.tab-row {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+
+.tab-row button {
+  padding: 8px 24px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #CCC5B9;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-row button.active {
+  background: #7C6EF8;
+  color: #fff;
+}

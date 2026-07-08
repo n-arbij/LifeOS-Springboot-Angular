@@ -1,0 +1,33 @@
+<div class="stopwatch">
+
+  <div class="stopwatch-display">
+    <span class="stopwatch-time">{{ displayTime() }}</span>
+  </div>
+
+  <div class="controls">
+    @if (!running()) {
+      <button class="btn-primary" (click)="start()">
+        {{ totalMs() === 0 ? 'Start' : 'Resume' }}
+      </button>
+    } @else {
+      <button class="btn-secondary" (click)="pause()">Pause</button>
+      <button class="btn-secondary" (click)="lap()">Lap</button>
+    }
+    @if (totalMs() > 0 && !running()) {
+      <button class="btn-danger" (click)="reset()">Reset</button>
+    }
+  </div>
+
+  @if (laps().length > 0) {
+    <div class="laps">
+      <p class="laps-header">Laps</p>
+      @for (lap of laps(); track $index) {
+        <div class="lap-row">
+          <span class="lap-number">{{ laps().length - $index }}</span>
+          <span class="lap-time">{{ lap }}</span>
+        </div>
+      }
+    </div>
+  }
+
+</div>
