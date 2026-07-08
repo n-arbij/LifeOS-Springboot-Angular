@@ -3,7 +3,8 @@
   --background-color: #252422;
   --surface-color: #2d2c29;
   --text-color: #FFFCF2;
-  --text-secondary: #CCC5B9;
+  --text-color-alt: #000;
+  --text-secondary: #8b8b8b;
 }
 
 .calendar {
@@ -70,7 +71,7 @@
 
 .calendar-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -79,8 +80,11 @@
   color: var(--text-color);
   padding: 0 20px;
 }
-
-.calendar-header button {
+.calendar-controls{
+    display: flex;
+    gap: 10px;
+}
+.calendar-controls button {
   width: 32px;
   height: 32px;
   border: none;
@@ -93,6 +97,20 @@
 
 .calendar-header button:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.create-btn{
+    width: 32px;
+    height: 32px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,.125);
+    background-color: rgba(255,255,255,.125);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .weekdays {
@@ -165,20 +183,23 @@
 
 .details-panel {
   width: 360px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 5px;
-  padding: 20px;
+  padding-right: 3em;
   overflow-y: auto;
 }
 
 .details-header {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
 }
-
+.details-header h2{
+    color: var(--text-color);
+    line-height: 100%;
+}
 .details-date {
   font-size: 20px;
   font-weight: 600;
@@ -208,46 +229,70 @@
 }
 
 .details-subtitle {
-  color: var(--text-secondary);
-  border: 1px solid rgba(235, 94, 40, 0.15);
-  background-color: rgba(235, 94, 40, 0.15);
-  border-radius: 20px;
-  padding: 5px 15px;
-  margin-top: 15px;
-  font-size: 14px;
+    width: 30px;
+    height: 30px;
+    color: var(--text-secondary);
+    border: 1px solid rgba(235, 94, 40, 0.15);
+    background-color: rgba(235, 94, 40, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 .event-card {
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   gap: 0;
   overflow: hidden;
-  padding: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 25px;
   margin-bottom: 15px;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.event-card.selected-card {
-  border-color: rgba(255, 255, 255, 0.3);
+.event-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
 }
-
-.event-color-bar {
-  width: 4px;
-  flex-shrink: 0;
-  border-radius: 2px 0 0 2px;
+.event-color-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
-
+.event-profile-title{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.edit-btn{
+    width: 32px;
+    height: 32px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+}
 .event-card-body {
-  padding: 15px;
   flex: 1;
+  padding: 0 3em;
 }
 
 .event-title {
   font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 6px;
+  color: var(--text-color-alt);
 }
 
 .event-meta {
@@ -257,7 +302,7 @@
 }
 
 .event-description {
-  color: var(--text-color);
+  color: var(--text-color-alt);
   line-height: 1.5;
   margin-top: 10px;
 }
@@ -265,25 +310,24 @@
 .event-status {
   display: inline-block;
   font-size: 11px;
-  padding: 3px 10px;
+  padding: 5px 10px;
   border-radius: 20px;
-  margin-top: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .event-status.upcoming {
-  background: rgba(124, 110, 248, 0.15);
-  color: #a89ff7;
+  background: rgb(102, 91, 201);
+  color: var(--text-color);
 }
 
 .event-status.ongoing {
-  background: rgba(78, 204, 163, 0.15);
-  color: #4ecca3;
+  background: rgb(7, 145, 99);
+  color: var(--text-color);
 }
 
 .event-status.completed {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(248, 116, 116, 0.08);
   color: #CCC5B9;
 }
 

@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { EventService } from '../../core/services/event.service';
 import { EventResponse, EventSummaryResponse } from '../../core/models/event.model';
+import { EventDrawerComponent } from './event-drawer/event-drawer.component';
 
 @Component({
   selector: 'app-event',
-  imports: [CommonModule],
+  imports: [CommonModule, EventDrawerComponent],
   templateUrl: './event.component.html',
   styleUrl: './event.component.css',
 })
@@ -18,6 +19,9 @@ export class EventComponent implements OnInit{
 
     eventsByDate = signal<Record<string, EventSummaryResponse[]>>({});
     loading = signal(false);
+
+    drawerOpen = signal(false);
+    drawerEvent = signal<EventResponse | null>(null);
 
     readonly weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -105,6 +109,31 @@ export class EventComponent implements OnInit{
         hour: '2-digit',
         minute: '2-digit'
         });
+    }
+
+    openCreateDrawer(): void {
+        this.drawerEvent.set(null);
+        this.drawerOpen.set(true);
+    }
+
+    openEditDrawer(event: EventResponse): void {
+        this.drawerEvent.set(event);
+        this.drawerOpen.set(true);
+    }
+
+    closeDrawer(): void {
+        this.drawerOpen.set(false);
+    }
+
+    onEventSaved(event: EventResponse): void {
+        this.loadMonth();  // reload the calendar
+    }
+
+    onEventDeleted(id: string): void {
+        this.loadMonth();
+        if (this.selectedEvent()?.id === id) {
+            this.selectedEvent.set(null);
+        }
     }
 
     private loadMonth(): void {

@@ -1,0 +1,202 @@
+<!-- Overlay -->
+@if (open) {
+  <div class="drawer-overlay" (click)="close()"></div>
+}
+
+<!-- Drawer -->
+<div class="drawer" [class.open]="open">
+
+  <div class="drawer-header">
+    <h2>{{ title }}</h2>
+    <button class="close-btn" (click)="close()">✕</button>
+  </div>
+
+  @if (error()) {
+    <div class="drawer-error">{{ error() }}</div>
+  }
+
+  <div class="drawer-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- Title -->
+      <div class="field">
+        <label for="ev-title">Title</label>
+        <input
+          id="ev-title"
+          type="text"
+          formControlName="title"
+          placeholder="Event title" />
+        @if (form.get('title')?.touched && form.get('title')?.hasError('required')) {
+          <span class="field-error">Title is required</span>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="field">
+        <label for="ev-desc">Description</label>
+        <textarea
+          id="ev-desc"
+          formControlName="description"
+          placeholder="Optional description"
+          rows="3">
+        </textarea>
+      </div>
+
+      <!-- All day toggle -->
+      <div class="field-row">
+        <label class="toggle-label" for="ev-allday">All day</label>
+        <label class="toggle">
+          <input
+            id="ev-allday"
+            type="checkbox"
+            formControlName="allDay" />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+
+      <!-- Timed fields -->
+      @if (!allDay?.value) {
+        <div class="field">
+          <label for="ev-start">Start</label>
+          <input
+            id="ev-start"
+            type="datetime-local"
+            formControlName="startDateTime" />
+        </div>
+        <div class="field">
+          <label for="ev-end">End</label>
+          <input
+            id="ev-end"
+            type="datetime-local"
+            formControlName="endDateTime" />
+        </div>
+      }
+
+      <!-- All day date fields -->
+      @if (allDay?.value) {
+        <div class="field">
+          <label for="ev-start-date">Start date</label>
+          <input
+            id="ev-start-date"
+            type="date"
+            formControlName="startDate" />
+        </div>
+        <div class="field">
+          <label for="ev-end-date">End date</label>
+          <input
+            id="ev-end-date"
+            type="date"
+            formControlName="endDate" />
+        </div>
+      }
+
+      <!-- Location -->
+      <div class="field">
+        <label for="ev-location">Location</label>
+        <input
+          id="ev-location"
+          type="text"
+          formControlName="location"
+          placeholder="Optional location" />
+      </div>
+
+      <!-- Color -->
+      <div class="field">
+        <label>Color</label>
+        <div class="color-row">
+          @for (color of colorOptions; track color) {
+            <button
+              type="button"
+              class="color-swatch"
+              [style.background-color]="color"
+              [class.selected]="form.get('color')?.value === color"
+              (click)="selectColor(color)">
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Reminders -->
+      <div class="field">
+        <label>Reminders</label>
+        <div class="reminder-row">
+          @for (min of reminderOptions; track min) {
+            <button
+              type="button"
+              class="reminder-chip"
+              [class.selected]="isReminderSelected(min)"
+              (click)="toggleReminder(min)">
+              {{ min >= 60 ? (min / 60) + 'h' : min + 'm' }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Recurrence -->
+      <div class="field">
+        <label for="ev-rrule">Recurrence rule</label>
+        <input
+          id="ev-rrule"
+          type="text"
+          formControlName="recurrenceRule"
+          placeholder="e.g. FREQ=WEEKLY;BYDAY=MO" />
+      </div>
+
+      <!-- Remove recurrence — edit mode only -->
+      @if (isEditMode && form.get('recurrenceRule')?.value) {
+        <div class="field-row">
+          <label class="toggle-label" for="ev-remove-recurrence">
+            Remove recurrence
+          </label>
+          <label class="toggle">
+            <input
+              id="ev-remove-recurrence"
+              type="checkbox"
+              formControlName="removeRecurrence" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      }
+
+      <!-- Status — edit mode only -->
+      @if (isEditMode) {
+        <div class="field">
+          <label for="ev-status">Status</label>
+          <select id="ev-status" formControlName="status">
+            @for (opt of statusOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="drawer-actions">
+        @if (isEditMode) {
+          <button
+            type="button"
+            class="btn-danger"
+            [disabled]="loading()"
+            (click)="confirmDelete()">
+            Delete
+          </button>
+        }
+        <button
+          type="button"
+          class="btn-secondary"
+          [disabled]="loading()"
+          (click)="close()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="loading()">
+          {{ loading() ? 'Saving…' : isEditMode ? 'Save changes' : 'Create event' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
