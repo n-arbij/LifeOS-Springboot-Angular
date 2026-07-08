@@ -1,0 +1,77 @@
+.habit-list-page {
+  padding: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FFFCF2;
+  margin: 0;
+}
+
+.week-header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.habit-name-col {
+  flex: 1;
+  min-width: 180px;
+}
+
+.week-days {
+  display: flex;
+  gap: 8px;
+}
+
+.week-day-label {
+  width: 36px;
+  text-align: center;
+  font-size: 11px;
+  color: #CCC5B9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.week-day-label.today .day-name {
+  color: #EB5E28;
+  font-weight: 600;
+}
+
+.streak-col {
+  width: 60px;
+  text-align: center;
+  font-size: 11px;
+  color: #CCC5B9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.habit-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.state-msg {
+  font-size: 14px;
+  color: #CCC5B9;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.state-msg.error {
+  color: #e87575;
+}

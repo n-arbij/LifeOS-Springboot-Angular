@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.barak.lifeOS.common.Helper;
@@ -26,15 +28,13 @@ public class HabitService {
     private final HabitLogRepository logRepository;
     private final Helper helper;
 
-    public List<HabitDto.Response> getAll(){
+    public Page<HabitDto.Response> getAll(Pageable pageable){
         User user = helper.getCurrentUser();
-        return habitRepository.findByUserAndActiveTrue(user)
-        .stream()
+        return habitRepository.findByUserAndActiveTrue(user, pageable)
         .map(habit -> {
             StreakResult streak = calculateStreak(habit);
             return HabitDto.Response.fromEntity(habit, streak.current(), streak.longest());
-        })
-        .toList();
+        });
     }
 
     public HabitDto.Response getById(UUID id){

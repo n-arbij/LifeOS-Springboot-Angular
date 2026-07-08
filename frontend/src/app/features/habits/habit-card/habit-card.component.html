@@ -1,0 +1,47 @@
+<div class="habit-card">
+
+  <div class="habit-info">
+    <div
+      class="habit-color-dot"
+      [style.background-color]="habit.color ?? '#7C6EF8'">
+    </div>
+    <div class="habit-name-block">
+      <span class="habit-name">{{ habit.name }}</span>
+      @if (habit.targetValue) {
+        <span class="habit-target">
+          {{ habit.targetValue }} {{ habit.unit }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <div class="week-cells">
+    @for (day of weekDays; track day.date) {
+      <label
+        class="day-cell"
+        [class]="getDayState(day.date)"
+        [title]="day.date">
+        <input
+          type="checkbox"
+          [checked]="getDayState(day.date) === 'completed'"
+          [disabled]="day.date > today
+                      || getDayState(day.date) === 'unscheduled'
+                      || logging() === day.date"
+          (change)="toggleDay(day.date)" />
+        <span class="custom-check">
+          @if (getDayState(day.date) === 'completed') {
+            <span class="cell-check">✓</span>
+          } @else if (getDayState(day.date) === 'missed') {
+            <span class="cell-miss">✕</span>
+          }
+        </span>
+      </label>
+    }
+  </div>
+
+  <div class="streak-block">
+    <span class="streak-number">{{ habit.currentStreak }}</span>
+    <span class="streak-icon">🔥</span>
+  </div>
+
+</div>

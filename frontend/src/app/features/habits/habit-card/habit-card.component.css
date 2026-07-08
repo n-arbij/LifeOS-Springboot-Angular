@@ -1,0 +1,137 @@
+.habit-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.habit-info {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.habit-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.habit-name-block {
+  display: flex;
+  align-items: center;
+  gap: 3em;
+}
+
+.habit-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFCF2;
+}
+
+.habit-target {
+  font-size: 11px;
+  color: #CCC5B9;
+}
+
+.week-cells {
+  display: flex;
+  gap: 8px;
+}
+
+.day-cell {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.15s;
+  position: relative;
+}
+
+.day-cell input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.custom-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+.day-cell.completed {
+  background: rgba(78, 204, 163, 0.15);
+  border-color: rgba(78, 204, 163, 0.4);
+}
+
+.day-cell.missed {
+  background: rgba(226, 75, 74, 0.1);
+  border-color: rgba(226, 75, 74, 0.25);
+}
+
+.day-cell.scheduled {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.day-cell.unscheduled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.day-cell.future {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.day-cell:not(.unscheduled):not(.future):hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
+}
+
+.cell-check {
+  color: #4ECCA3;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cell-miss {
+  color: #e87575;
+  font-size: 12px;
+}
+
+.streak-block {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.streak-number {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFCF2;
+}
+
+.streak-icon {
+  font-size: 14px;
+}
