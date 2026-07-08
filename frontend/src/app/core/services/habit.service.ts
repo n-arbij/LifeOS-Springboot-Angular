@@ -33,12 +33,12 @@ export class HabitService {
   }
 
   log(habitId: string, request: LogHabitRequest): Observable<HabitLogResponse> {
-    return this.http.put<HabitLogResponse>(`${this.API}/${habitId}/log`, request);
+    return this.http.post<HabitLogResponse>(`${this.API}/${habitId}/logs`, request);
   }
 
-  getWeekSummary(habitId: string, weekStart: string): Observable<HabitWeekSummary> {
-    return this.http.get<HabitWeekSummary>(`${this.API}/${habitId}/week`, {
-      params: { weekStart }
+  getWeekSummary(habitId: string, date: string): Observable<HabitWeekSummary> {
+    return this.http.get<HabitWeekSummary>(`${this.API}/${habitId}/week-summary`, {
+      params: { date }
     });
   }
 }
