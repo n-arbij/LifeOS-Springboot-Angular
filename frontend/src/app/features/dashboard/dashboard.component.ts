@@ -3,6 +3,8 @@ import { EventService } from '../../core/services/event.service';
 import { EventSummaryResponse } from '../../core/models/event.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PomodoroSummaryResponse } from '../../core/models/pomodoro.model';
+import { PomodoroService } from '../../core/services/pomodoro.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,7 @@ import { RouterModule } from '@angular/router';
 export class DashboardComponent {
     readonly today = new Date();
     private eventService = inject(EventService);
+    private pomodoroService = inject(PomodoroService);
 
     upcomingEvents = signal<EventSummaryResponse[]>([]);
     loading        = signal(false);
@@ -20,6 +23,7 @@ export class DashboardComponent {
 
     ngOnInit(): void {
         this.loadEvents();
+        this.loadSummary();
     }
 
     formatTime(instant: string): string {
@@ -67,6 +71,15 @@ export class DashboardComponent {
             this.error.set('Could not load events.');
             this.loading.set(false);
         }
+        });
+    }
+
+    summary = signal<PomodoroSummaryResponse | null>(null);
+
+    private loadSummary(): void {
+        const today = new Date().toISOString().split('T')[0];
+        this.pomodoroService.getSummary(today).subscribe({
+            next: s => this.summary.set(s)
         });
     }
 }

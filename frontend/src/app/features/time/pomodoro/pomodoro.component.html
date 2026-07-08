@@ -1,0 +1,71 @@
+<div class="pomodoro">
+
+  <!-- Session type selector -->
+  <div class="session-tabs">
+    @for (config of sessions; track config.type) {
+      <button
+        class="session-tab"
+        [class.active]="selectedConfig().type === config.type"
+        [disabled]="phase() !== 'idle'"
+        (click)="selectConfig(config)">
+        {{ config.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Timer ring -->
+  <div class="timer-ring-wrapper">
+    <svg class="timer-ring" viewBox="0 0 200 200">
+      <!-- Background track -->
+      <circle
+        cx="100" cy="100" r="88"
+        fill="none"
+        stroke="rgba(255,255,255,0.06)"
+        stroke-width="8" />
+      <!-- Progress arc -->
+      <circle
+        cx="100" cy="100" r="88"
+        fill="none"
+        stroke="#7C6EF8"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-dasharray="553"
+        [attr.stroke-dashoffset]="553 - (553 * progress() / 100)"
+        transform="rotate(-90 100 100)" />
+    </svg>
+
+    <div class="timer-display">
+      <span class="timer-time">{{ displayTime() }}</span>
+      <span class="timer-label">{{ selectedConfig().label }}</span>
+    </div>
+  </div>
+
+  <!-- Completed count -->
+  @if (completedCount() > 0) {
+    <div class="completed-count">
+      🍅 {{ completedCount() }} session{{ completedCount() === 1 ? '' : 's' }} completed today
+    </div>
+  }
+
+  <!-- Controls -->
+  <div class="controls">
+    @if (phase() === 'idle') {
+      <button class="btn-primary" [disabled]="loading()" (click)="start()">
+        {{ loading() ? 'Starting…' : 'Start' }}
+      </button>
+    }
+
+    @if (phase() === 'running') {
+      <button class="btn-secondary" (click)="pause()">Pause</button>
+      <button class="btn-danger"    (click)="cancel()">Cancel</button>
+    }
+
+    @if (phase() === 'paused') {
+      <button class="btn-primary"   [disabled]="loading()" (click)="resume()">
+        {{ loading() ? 'Resuming…' : 'Resume' }}
+      </button>
+      <button class="btn-danger"    (click)="cancel()">Cancel</button>
+    }
+  </div>
+
+</div>

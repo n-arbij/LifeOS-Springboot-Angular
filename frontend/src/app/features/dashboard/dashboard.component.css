@@ -124,3 +124,32 @@
 .dot-separator {
   color: rgba(255, 255, 255, 0.2);
 }
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.summary-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #FFFCF2;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #4A5068;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

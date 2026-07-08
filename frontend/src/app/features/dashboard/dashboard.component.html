@@ -54,7 +54,36 @@
 
     </div>
 
-    <!-- More widgets go here -->
+    <!-- Pomodoro summary widget -->
+    <div class="widget">
+    <div class="widget-header">
+        <h2>Today's Focus</h2>
+        <a routerLink="/time" class="widget-link">Open timer</a>
+    </div>
+
+    @if (summary()) {
+        <div class="summary-grid">
+        <div class="summary-stat">
+            <span class="stat-value">{{ summary()!.completedSessions }}</span>
+            <span class="stat-label">Sessions</span>
+        </div>
+        <div class="summary-stat">
+            <span class="stat-value">{{ summary()!.totalFocusMinutes }}m</span>
+            <span class="stat-label">Focus time</span>
+        </div>
+        <div class="summary-stat">
+            <span class="stat-value">{{ summary()!.totalBreakMinutes }}m</span>
+            <span class="stat-label">Break time</span>
+        </div>
+        <div class="summary-stat">
+            <span class="stat-value">{{ summary()!.cancelledSessions }}</span>
+            <span class="stat-label">Cancelled</span>
+        </div>
+        </div>
+    } @else {
+        <div class="widget-empty">No sessions recorded today.</div>
+    }
+    </div>
 
   </div>
 </div>
