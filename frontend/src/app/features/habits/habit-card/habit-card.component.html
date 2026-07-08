@@ -17,20 +17,25 @@
 
   <div class="week-cells">
     @for (day of weekDays; track day.date) {
-      <button
+      <label
         class="day-cell"
         [class]="getDayState(day.date)"
-        [disabled]="day.date > today || logging() === day.date"
-        (click)="toggleDay(day.date)"
         [title]="day.date">
-
-        @if (getDayState(day.date) === 'completed') {
-          <span class="cell-check">✓</span>
-        } @else if (getDayState(day.date) === 'missed') {
-          <span class="cell-miss">✕</span>
-        }
-
-      </button>
+        <input
+          type="checkbox"
+          [checked]="getDayState(day.date) === 'completed'"
+          [disabled]="day.date > today
+                      || getDayState(day.date) === 'unscheduled'
+                      || logging() === day.date"
+          (change)="toggleDay(day.date)" />
+        <span class="custom-check">
+          @if (getDayState(day.date) === 'completed') {
+            <span class="cell-check">✓</span>
+          } @else if (getDayState(day.date) === 'missed') {
+            <span class="cell-miss">✕</span>
+          }
+        </span>
+      </label>
     }
   </div>
 

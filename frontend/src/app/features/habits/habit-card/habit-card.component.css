@@ -25,7 +25,8 @@
 
 .habit-name-block {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 3em;
 }
 
 .habit-name {
@@ -37,7 +38,6 @@
 .habit-target {
   font-size: 11px;
   color: #CCC5B9;
-  margin-top: 2px;
 }
 
 .week-cells {
@@ -51,17 +51,29 @@
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.03);
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  cursor: pointer;
   transition: 0.15s;
+  position: relative;
 }
 
-.day-cell:disabled {
-  cursor: default;
-  opacity: 0.4;
+.day-cell input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.custom-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
 }
 
 .day-cell.completed {
@@ -87,9 +99,10 @@
 .day-cell.future {
   opacity: 0.3;
   cursor: default;
+  pointer-events: none;
 }
 
-.day-cell:not(:disabled):not(.unscheduled):hover {
+.day-cell:not(.unscheduled):not(.future):hover {
   border-color: rgba(255, 255, 255, 0.4);
   transform: scale(1.08);
 }

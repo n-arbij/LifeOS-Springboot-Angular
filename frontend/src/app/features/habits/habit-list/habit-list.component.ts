@@ -36,9 +36,10 @@ export class HabitListComponent implements OnInit {
     }
 
     private loadHabits(): void {
-        this.loading.set(false);
+        this.loading.set(true);
         this.habitService.getAll().subscribe({
-        next: () => {
+        next: page => {
+            this.habits.set(page.content.filter(h => h.active))
             this.loading.set(false);
         },
         error: () => {

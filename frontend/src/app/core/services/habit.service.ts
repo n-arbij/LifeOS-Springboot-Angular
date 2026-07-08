@@ -3,14 +3,17 @@ import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { CreateHabitRequest, HabitLogResponse, HabitResponse, HabitWeekSummary, LogHabitRequest, UpdateHabitRequest } from "../models/habit.model";
+import { Page } from "../models/journal-entry.model";
 
 @Injectable({ providedIn: 'root' })
 export class HabitService {
   private http = inject(HttpClient);
   private readonly API = `${environment.apiUrl}/habits`;
 
-  getAll(): Observable<HabitResponse[]> {
-    return this.http.get<HabitResponse[]>(this.API);
+  getAll(page = 0, size = 10): Observable<Page<HabitResponse>> {
+    return this.http.get<Page<HabitResponse>>(this.API, {
+      params: {page, size}
+    });
   }
 
   getById(id: string): Observable<HabitResponse> {
