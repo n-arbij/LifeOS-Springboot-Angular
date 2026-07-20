@@ -1,52 +1,54 @@
-<div class="login-container">
-    <div class="container-header">
-        <h3>Yooo, welcome back!</h3>
-    
-        <p class="redirect">
-            First time here?
-            <a routerLink="/register">Sign up</a>
-        </p>
+<div class="wrapper">
+    <div class="login-img">
+        <img src="images/enter.svg" alt="Logo">
     </div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="form-group">
-            <input
-                type="text"
-                formControlName="username"
-                placeholder="Username">
-
+    <div class="login-container">
+        <div class="container-header">
+            <h1>Yooo, welcome back!</h1>
+        
+            <p class="redirect">
+                First time here?
+                <a routerLink="/register">Sign up</a>
+            </p>
         </div>
-
-        <div class="form-group">
-            <input
-                type="password"
-                formControlName="password"
-                placeholder="Password">
-        </div>
-
-        <div class="remember">
-            <label>
+    
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="form-group">
                 <input
-                    type="checkbox"
-                    formControlName="rememberMe">
-
-                Remember me
-            </label>
-        </div>
-
-        <button
-            type="submit"
-            [disabled]="loginForm.invalid || loading">
-
-            {{ loading ? 'Signing In...' : 'Sign In' }}
-        </button>
-        <div class="forgot-password">
-            <a routerLink="/forgot-password">
-                Forgot Password?
-            </a>
-        </div>
-    </form>
-
-   
-
+                    class="el-input"
+                    type="text"
+                    formControlName="username"
+                    placeholder="Username">
+    
+            </div>
+    
+            <div class="form-group">
+                <input
+                    class="el-input"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Password">
+            </div>
+    
+            <div class="remember">
+                <label class="neo-checkbox">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                    <span>Remember me</span>
+                </label>
+            </div>
+    
+            <button
+                type="submit"
+                [disabled]="loginForm.invalid || loading" class="btn">
+    
+                {{ loading ? 'Signing In...' : 'Sign In' }}
+            </button>
+            <div class="forgot-password">
+                <a routerLink="/forgot-password">
+                    Forgot Password?
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
