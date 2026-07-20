@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
-    gap: 2em;
+    align-items: center;
+    gap: 8em;
 }
 h1{
     font-family: 'Syne', sans-serif;
@@ -108,4 +109,7 @@ input::placeholder, input{
 
 .neo-checkbox:has(input:disabled) {
     cursor: not-allowed;
+}
+.login-img img{
+    height: 450px;
 }
