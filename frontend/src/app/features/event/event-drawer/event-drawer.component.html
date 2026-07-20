@@ -134,12 +134,8 @@
 
       <!-- Recurrence -->
       <div class="field">
-        <label for="ev-rrule">Recurrence rule</label>
-        <input
-          id="ev-rrule"
-          type="text"
-          formControlName="recurrenceRule"
-          placeholder="e.g. FREQ=WEEKLY;BYDAY=MO" />
+        <label>Repeat</label>
+        <app-recurrence-picker formControlName="recurrenceRule"></app-recurrence-picker>
       </div>
 
       <!-- Remove recurrence — edit mode only -->
