@@ -3,32 +3,39 @@
   flex-direction: column;
   align-items: center;
   gap: 28px;
+  padding: 12px 0 24px;
 }
 
+/* ============ SESSION TABS ============ */
 .session-tabs {
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 3px;
-  gap: 3px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .session-tab {
-  padding: 7px 18px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 0 #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 13px;
-  font-weight: 500;
-  color: #CCC5B9;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.1s ease;
+}
+
+.session-tab:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 #000;
+  background: #74B9FF;
 }
 
 .session-tab.active {
-  background: #7C6EF8;
-  color: #fff;
+  background: #FFD23F;
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
 .session-tab:disabled {
@@ -36,91 +43,123 @@
   cursor: not-allowed;
 }
 
+.session-tab:disabled:hover {
+  transform: none;
+  box-shadow: 3px 3px 0 0 #000;
+  background: #fff;
+}
+
+.session-tab.active:disabled {
+  background: #FFD23F;
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ============ TIMER RING ============ */
 .timer-ring-wrapper {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 260px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 8px 8px 0 0 #000;
+  border-radius: 50%;
 }
 
 .timer-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 220px;
+  height: 220px;
+}
+
+.timer-ring circle:first-child {
+  stroke: #eee;
+}
+
+.timer-ring circle:last-child {
+  stroke: #74B9FF;
 }
 
 .timer-display {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  z-index: 1;
 }
 
 .timer-time {
-  font-size: 48px;
-  font-weight: 600;
-  color: #FFFCF2;
   font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: -1px;
+  font-weight: 700;
+  font-size: 44px;
+  color: #000;
+  line-height: 1;
 }
 
 .timer-label {
-  font-size: 12px;
-  color: #CCC5B9;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 1px;
+  color: #555;
 }
 
+/* ============ COMPLETED COUNT ============ */
 .completed-count {
+  padding: 8px 16px;
+  border: 2px solid #000;
+  background: #FFA552;
+  box-shadow: 3px 3px 0 0 #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 13px;
-  color: #CCC5B9;
 }
 
+/* ============ CONTROLS ============ */
 .controls {
   display: flex;
   gap: 12px;
 }
 
-.btn-primary,
-.btn-secondary,
-.btn-danger {
-  padding: 10px 32px;
-  border: none;
-  border-radius: 8px;
+.controls button {
+  padding: 12px 26px;
+  border: 3px solid #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: all 0.1s ease;
 }
 
 .btn-primary {
-  background: #7C6EF8;
-  color: #fff;
+  background: #88D498;
+  box-shadow: 5px 5px 0 0 #000;
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  color: #FFFCF2;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #fff;
+  box-shadow: 5px 5px 0 0 #000;
 }
 
 .btn-danger {
-  background: rgba(226, 75, 74, 0.15);
-  color: #e87575;
-  border: 1px solid rgba(226, 75, 74, 0.25);
+  background: #FF6B6B;
+  box-shadow: 5px 5px 0 0 #000;
 }
 
-.btn-primary:hover,
-.btn-secondary:hover,
-.btn-danger:hover {
-  opacity: 0.85;
+.controls button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 #000;
 }
 
-.btn-primary:disabled {
+.controls button:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.controls button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
