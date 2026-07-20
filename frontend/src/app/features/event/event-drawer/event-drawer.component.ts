@@ -3,10 +3,11 @@ import { Component, EventEmitter, inject, Input, Output, signal, SimpleChanges }
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateEventRequest, EventResponse, UpdateEventRequest } from '../../../core/models/event.model';
 import { EventService } from '../../../core/services/event.service';
+import { RecurrencePickerComponent } from '../../../components/recurrence-picker/recurrence-picker.component';
 
 @Component({
   selector: 'app-event-drawer',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RecurrencePickerComponent],
   templateUrl: './event-drawer.component.html',
   styleUrl: './event-drawer.component.css',
 })

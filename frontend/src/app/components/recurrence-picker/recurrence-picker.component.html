@@ -1,0 +1,100 @@
+<div class="recurrence-picker">
+
+  <!-- Frequency chips -->
+  <div class="freq-row">
+    <button type="button" class="freq-chip" [class.selected]="frequency() === 'NONE'" (click)="setFrequency('NONE')">
+      Never
+    </button>
+    <button type="button" class="freq-chip" [class.selected]="frequency() === 'DAILY'" (click)="setFrequency('DAILY')">
+      Daily
+    </button>
+    <button type="button" class="freq-chip" [class.selected]="frequency() === 'WEEKLY'" (click)="setFrequency('WEEKLY')">
+      Weekly
+    </button>
+    <button type="button" class="freq-chip" [class.selected]="frequency() === 'MONTHLY'" (click)="setFrequency('MONTHLY')">
+      Monthly
+    </button>
+    <button type="button" class="freq-chip" [class.selected]="frequency() === 'YEARLY'" (click)="setFrequency('YEARLY')">
+      Yearly
+    </button>
+  </div>
+
+  @if (frequency() !== 'NONE') {
+
+    <!-- Interval -->
+    <div class="interval-row">
+      <span class="interval-label">Every</span>
+      <input
+        type="number"
+        min="1"
+        class="interval-input"
+        [ngModel]="interval()"
+        (ngModelChange)="setInterval($event)" />
+      <span class="interval-label">
+        {{ frequency() === 'DAILY' ? (interval() === 1 ? 'day' : 'days') :
+           frequency() === 'WEEKLY' ? (interval() === 1 ? 'week' : 'weeks') :
+           frequency() === 'MONTHLY' ? (interval() === 1 ? 'month' : 'months') :
+           (interval() === 1 ? 'year' : 'years') }}
+      </span>
+    </div>
+
+    <!-- Weekday picker (weekly only) -->
+    @if (frequency() === 'WEEKLY') {
+      <div class="day-row">
+        @for (code of dayCodes; track code; let i = $index) {
+          <button
+            type="button"
+            class="day-circle"
+            [class.selected]="selectedDays().has(code)"
+            (click)="toggleDay(code)">
+            {{ dayLabels[i] }}
+          </button>
+        }
+      </div>
+    }
+
+    <!-- End condition -->
+    <div class="field">
+      <label>Ends</label>
+      <div class="end-options">
+        <label class="end-option">
+          <input type="radio" name="endType" [checked]="endType() === 'NEVER'" (change)="setEndType('NEVER')" />
+          <span>Never</span>
+        </label>
+        <label class="end-option">
+          <input type="radio" name="endType" [checked]="endType() === 'UNTIL'" (change)="setEndType('UNTIL')" />
+          <span>On date</span>
+          @if (endType() === 'UNTIL') {
+            <input
+              type="date"
+              class="end-input"
+              [ngModel]="untilDate()"
+              (ngModelChange)="setUntilDate($event)"
+              (click)="$event.stopPropagation()" />
+          }
+        </label>
+        <label class="end-option">
+          <input type="radio" name="endType" [checked]="endType() === 'COUNT'" (change)="setEndType('COUNT')" />
+          <span>After</span>
+          @if (endType() === 'COUNT') {
+            <input
+              type="number"
+              min="1"
+              class="end-input end-input-count"
+              [ngModel]="count()"
+              (ngModelChange)="setCount($event)"
+              (click)="$event.stopPropagation()" />
+            <span>occurrences</span>
+          }
+        </label>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-bar">
+      <span class="summary-icon">↻</span>
+      <span>{{ summary() }}</span>
+    </div>
+  }
+
+</div>
