@@ -1,9 +1,11 @@
 <div class="register-container">
     <div class="container-header">
-        <h3>Welcome Aboard!</h3>
-    
-        <p id="subtitle">
-            Start organizing your life with LifeOS.
+        <h1>Welcome Aboard!</h1>
+        <p class="redirect">
+            Already have an account?
+            <a routerLink="/login">
+                Sign In
+            </a>
         </p>
     </div>
 
@@ -12,6 +14,7 @@
             <div class="sect1">
                 <div class="form-group">
                     <input
+                        class="el-input"
                         type="text"
                         formControlName="firstName"
                         placeholder="First Name"
@@ -20,6 +23,7 @@
         
                 <div class="form-group">
                     <input
+                        class="el-input"
                         type="text"
                         formControlName="lastName"
                         placeholder="Last Name"
@@ -28,6 +32,7 @@
         
                 <div class="form-group">
                     <input
+                        class="el-input"
                         type="text"
                         formControlName="username"
                         placeholder="Username"
@@ -38,6 +43,7 @@
             <div class="sect2">
                 <div class="form-group">
                     <input
+                        class="el-input"
                         type="email"
                         formControlName="email"
                         placeholder="Email Address"
@@ -46,6 +52,7 @@
         
                 <div class="form-group">
                     <input
+                        class="el-input"
                         [type]="showPassword ? 'text' : 'password'"
                         formControlName="password"
                         placeholder="Password"
@@ -54,6 +61,7 @@
         
                 <div class="form-group">
                     <input
+                        class="el-input"
                         [type]="showConfirmPassword ? 'text' : 'password'"
                         formControlName="confirmPassword"
                         placeholder="Confirm Password"
@@ -68,16 +76,13 @@
         </div>
 
         <div class="terms-submit">
-            <label class="terms">
-                <input
-                    type="checkbox"
-                    formControlName="acceptTerms">
-    
-                I agree to the <a href="#">Terms and Conditions</a> .
-    
-            </label>
-    
+            <label class="neo-checkbox">
+                <input type="checkbox" formControlName="acceptTerms">
+                <span class="checkmark"></span>
+                <span>I agree to the <a href="#">Terms and Conditions</a> .</span>
+            </label>    
             <button
+                class="btn"
                 type="submit"
                 [disabled]="loading || registerForm.invalid">
     
@@ -85,12 +90,4 @@
             </button>
         </div>
     </form>
-
-    <p class="redirect">
-        Already have an account?
-        <a routerLink="/login">
-            Sign In
-        </a>
-    </p>
-
 </div>
