@@ -1,7 +1,29 @@
 <header class="dashboard-header">
-    <div class="date-div">
-        <p>
-            {{ currentDate | date:'EEEE, d MMMM y' }}
-        </p>
-    </div>
+    <nav class="neo-navbar">
+        <div class="logo">
+            <h2>Life OS</h2>
+        </div>
+
+        <ul class="nav-links">
+            @for(item of navbarItems; track item.route) {
+                <li>
+                    <a
+                        [routerLink]="item.route"
+                        routerLinkActive="active"
+                        class="sidebar-item">
+                        <span class="labels">
+                            {{ item.label }}
+                        </span>
+                    </a>
+                </li>
+        }
+        <li>
+            <a href="logout" (click)="logout(); $event.preventDefault()">
+                <span class="icons">
+                    <i class="bx bx-log-out"></i>
+                </span>
+            </a>
+        </li>
+        </ul>
+    </nav>
 </header>
