@@ -2,6 +2,7 @@
 
   <div class="page-header">
     <h1>Habits</h1>
+    <button class="add-habit-btn" (click)="openCreate()">+ New habit</button>
   </div>
 
   <!-- Week header -->
@@ -29,10 +30,17 @@
         <app-habit-card
           [habit]="habit"
           [weekDays]="weekDays"
-          (logged)="onLogged($event)">
+          (logged)="onLogged($event)"
+          (editRequested)="openEdit(habit)">
         </app-habit-card>
       }
     </div>
   }
-
+  <app-habit-drawer
+    [open]="drawerOpen()"
+    [habit]="drawerHabit()"
+    (closed)="closeDrawer()"
+    (saved)="onSaved($event)"
+    (deleted)="onDeleted($event)">
+  </app-habit-drawer>
 </div>

@@ -14,6 +14,7 @@ export class HabitCardComponent implements OnInit {
     @Input({ required: true }) habit!: HabitResponse;
     @Input({ required: true }) weekDays!: { label: string; date: string }[];
     @Output() logged = new EventEmitter<string>();
+    @Output() editRequested = new EventEmitter<void>();
 
     private habitService = inject(HabitService);
 

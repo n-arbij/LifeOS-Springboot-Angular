@@ -18,29 +18,19 @@ export interface HabitResponse {
   longestStreak: number;
 }
 
-export interface CreateHabitRequest {
+export interface HabitPayload {
+  id?: string;
   name: string;
-  description?: string;
+  description: string | null;
   habitType: HabitType;
   frequencyType: FrequencyType;
-  targetValue?: number;
-  customDayMask?: number;
-  unit?: string;
+  customDayMask: number | null;
+  targetValue: number | null;
+  unit: string | null;
   startDate: string;
-  endDate?: string;
-  color?: string;
-}
-
-export interface UpdateHabitRequest {
-  name?: string;
-  description?: string;
-  frequencyType?: FrequencyType;
-  customDayMask?: number;
-  targetValue?: number;
-  unit?: string;
-  endDate?: string;
-  active?: boolean;
-  color?: string;
+  endDate: string | null;
+  active: boolean;
+  color: string | null;
 }
 
 export interface LogHabitRequest {

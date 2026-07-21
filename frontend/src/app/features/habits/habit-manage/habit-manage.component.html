@@ -1,0 +1,70 @@
+<div class="manage-page">
+
+  <div class="manage-header">
+    <h1>Manage habits</h1>
+    <div class="header-actions">
+      @if (selectMode()) {
+        <button class="select-all-btn" (click)="toggleSelectAll()">
+          {{ allSelected() ? 'Deselect all' : 'Select all' }}
+        </button>
+        <button
+          class="delete-btn"
+          [disabled]="selectedCount() === 0"
+          (click)="deleteSelected()">
+          Delete ({{ selectedCount() }})
+        </button>
+        <button class="cancel-select-btn" (click)="toggleSelectMode()">Cancel</button>
+      } @else {
+        <button class="select-btn" (click)="toggleSelectMode()">Select</button>
+        <button class="add-btn" (click)="openCreate()">+ New habit</button>
+      }
+    </div>
+  </div>
+
+  @if (habits().length === 0) {
+    <div class="empty-state">No habits yet. Create one to get started.</div>
+  }
+
+  <div class="habit-manage-list">
+    @for (habit of habits(); track habit.id) {
+      <div
+        class="habit-manage-row"
+        [class.selected]="selectedIds().has(habit.id!)"
+        [class.select-mode]="selectMode()"
+        (click)="openEdit(habit)">
+
+        @if (selectMode()) {
+          <span class="select-check" [class.checked]="selectedIds().has(habit.id!)">
+            @if (selectedIds().has(habit.id!)) { ✓ }
+          </span>
+        }
+
+        <span class="habit-dot" [style.background-color]="habit.color"></span>
+
+        <div class="habit-info">
+          <span class="habit-name">{{ habit.name }}</span>
+          @if (habit.targetValue) {
+            <span class="habit-meta">{{ habit.targetValue }} {{ habit.unit }}</span>
+          }
+        </div>
+
+        @if (!habit.active) {
+          <span class="inactive-badge">Paused</span>
+        }
+
+        @if (!selectMode()) {
+          <span class="chevron">›</span>
+        }
+      </div>
+    }
+  </div>
+
+</div>
+
+<app-habit-drawer
+  [open]="drawerOpen()"
+  [habit]="drawerHabit()"
+  (closed)="closeDrawer()"
+  (saved)="onSaved($event)"
+  (deleted)="onDeleted($event)">
+</app-habit-drawer>

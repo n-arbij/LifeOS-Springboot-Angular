@@ -1,0 +1,199 @@
+@if (open) {
+  <div class="drawer-overlay" (click)="close()"></div>
+}
+
+<div class="drawer" [class.open]="open">
+
+  <div class="drawer-header">
+    <h2>{{ title }}</h2>
+    <button class="close-btn" (click)="close()">✕</button>
+  </div>
+
+  @if (error()) {
+    <div class="drawer-error">{{ error() }}</div>
+  }
+
+  <div class="drawer-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- Name -->
+      <div class="field">
+        <label for="habit-name">Name</label>
+        <input
+          id="habit-name"
+          type="text"
+          formControlName="name"
+          placeholder="e.g. Drink water" />
+        @if (form.get('name')?.touched && form.get('name')?.hasError('required')) {
+          <span class="field-error">Name is required</span>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="field">
+        <label for="habit-desc">Description</label>
+        <textarea
+          id="habit-desc"
+          formControlName="description"
+          placeholder="Optional notes"
+          rows="2">
+        </textarea>
+      </div>
+
+      <!-- Habit type -->
+      <div class="field">
+        <label>Type</label>
+        <div class="pill-row">
+          <button
+            type="button"
+            class="pill"
+            [class.selected]="form.get('habitType')?.value === 'BOOLEAN'"
+            (click)="form.patchValue({ habitType: 'BOOLEAN' })">
+            Check off
+          </button>
+          <button
+            type="button"
+            class="pill"
+            [class.selected]="form.get('habitType')?.value === 'QUANTITATIVE'"
+            (click)="form.patchValue({ habitType: 'QUANTITATIVE' })">
+            Track a number
+          </button>
+        </div>
+      </div>
+
+      <!-- Target value + unit — quantitative only -->
+      @if (isQuantitative()) {
+        <div class="field-pair">
+          <div class="field">
+            <label for="habit-target">Target</label>
+            <input
+              id="habit-target"
+              type="number"
+              min="0"
+              formControlName="targetValue"
+              placeholder="e.g. 8" />
+          </div>
+          <div class="field">
+            <label for="habit-unit">Unit</label>
+            <input
+              id="habit-unit"
+              type="text"
+              formControlName="unit"
+              placeholder="e.g. glasses" />
+          </div>
+        </div>
+      }
+
+      <!-- Frequency -->
+      <div class="field">
+        <label>Frequency</label>
+        <div class="pill-row">
+          <button
+            type="button"
+            class="pill"
+            [class.selected]="form.get('frequencyType')?.value === 'DAILY'"
+            (click)="form.patchValue({ frequencyType: 'DAILY' })">
+            Daily
+          </button>
+          <button
+            type="button"
+            class="pill"
+            [class.selected]="form.get('frequencyType')?.value === 'WEEKLY'"
+            (click)="form.patchValue({ frequencyType: 'WEEKLY' })">
+            Weekly
+          </button>
+          <button
+            type="button"
+            class="pill"
+            [class.selected]="form.get('frequencyType')?.value === 'CUSTOM_DAYS'"
+            (click)="form.patchValue({ frequencyType: 'CUSTOM_DAYS' })">
+            Custom days
+          </button>
+        </div>
+      </div>
+
+      <!-- Day picker — custom days only -->
+      @if (isCustomDays()) {
+        <div class="field">
+          <label>Repeat on</label>
+          <div class="day-row">
+            @for (bit of dayIndices; track bit) {
+              <button
+                type="button"
+                class="day-circle"
+                [class.selected]="selectedDayBits().has(bit)"
+                (click)="toggleDayBit(bit)">
+                {{ dayLabels[bit] }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Color -->
+      <div class="field">
+        <label>Color</label>
+        <div class="color-row">
+          @for (color of colorOptions; track color) {
+            <button
+              type="button"
+              class="color-swatch"
+              [style.background-color]="color"
+              [class.selected]="form.get('color')?.value === color"
+              (click)="selectColor(color)">
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Start / End date -->
+      <div class="field-pair">
+        <div class="field">
+          <label for="habit-start">Start date</label>
+          <input id="habit-start" type="date" formControlName="startDate" />
+        </div>
+        <div class="field">
+          <label for="habit-end">End date</label>
+          <input id="habit-end" type="date" formControlName="endDate" />
+        </div>
+      </div>
+
+      <!-- Active toggle -->
+      <div class="field-row">
+        <label class="toggle-label" for="habit-active">Active</label>
+        <label class="toggle">
+          <input id="habit-active" type="checkbox" formControlName="active" />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+
+      <!-- Actions -->
+      <div class="drawer-actions">
+        @if (isEditMode) {
+          <button
+            type="button"
+            class="btn-danger"
+            [disabled]="loading()"
+            (click)="confirmDelete()">
+            Delete
+          </button>
+        }
+        <button
+          type="button"
+          class="btn-secondary"
+          [disabled]="loading()"
+          (click)="close()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="loading()">
+          {{ loading() ? 'Saving…' : isEditMode ? 'Save changes' : 'Create habit' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

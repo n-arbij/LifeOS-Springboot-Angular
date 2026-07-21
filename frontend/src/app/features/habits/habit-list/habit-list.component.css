@@ -88,3 +88,32 @@
   background: #FF6B6B;
   color: #000;
 }
+.add-habit-btn {
+  padding: 8px 16px;
+  border: 3px solid #000;
+  background: #FFD23F;
+  box-shadow: 3px 3px 0 0 #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.add-habit-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+.add-habit-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.habit-info {
+  cursor: pointer;
+}
+
+.habit-info:hover .habit-name {
+  text-decoration: underline;
+}

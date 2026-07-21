@@ -1,6 +1,6 @@
 <div class="habit-card">
 
-  <div class="habit-info">
+  <div class="habit-info" (click)="editRequested.emit()">
     <div
       class="habit-color-dot"
       [style.background-color]="habit.color ?? '#7C6EF8'">

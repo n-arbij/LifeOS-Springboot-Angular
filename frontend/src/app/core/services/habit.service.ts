@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
-import { CreateHabitRequest, HabitLogResponse, HabitResponse, HabitWeekSummary, LogHabitRequest, UpdateHabitRequest } from "../models/habit.model";
+import { HabitLogResponse, HabitPayload, HabitResponse, HabitWeekSummary, LogHabitRequest} from "../models/habit.model";
 import { Page } from "../models/journal-entry.model";
 
 @Injectable({ providedIn: 'root' })
@@ -20,11 +20,11 @@ export class HabitService {
     return this.http.get<HabitResponse>(`${this.API}/${id}`);
   }
 
-  create(request: CreateHabitRequest): Observable<HabitResponse> {
+  create(request: HabitPayload): Observable<HabitResponse> {
     return this.http.post<HabitResponse>(this.API, request);
   }
 
-  update(id: string, request: UpdateHabitRequest): Observable<HabitResponse> {
+  update(id: string, request: HabitPayload): Observable<HabitResponse> {
     return this.http.put<HabitResponse>(`${this.API}/${id}`, request);
   }
 

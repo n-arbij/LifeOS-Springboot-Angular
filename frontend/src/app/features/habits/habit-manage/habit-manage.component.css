@@ -1,0 +1,185 @@
+.manage-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ============ HEADER ============ */
+.manage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.manage-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-actions button {
+  padding: 9px 16px;
+  border: 3px solid #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 0 #000;
+  transition: all 0.1s ease;
+}
+
+.header-actions button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+.header-actions button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.header-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.add-btn {
+  background: #FFD23F;
+}
+
+.select-btn {
+  background: #fff;
+}
+
+.select-all-btn {
+  background: #fff;
+}
+
+.delete-btn {
+  background: #FF6B6B;
+}
+
+.cancel-select-btn {
+  background: #eee;
+}
+
+/* ============ EMPTY STATE ============ */
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  border: 2px dashed #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #555;
+}
+
+/* ============ ROWS ============ */
+.habit-manage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.habit-manage-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 0 #000;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.habit-manage-row:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+.habit-manage-row.select-mode:hover {
+  background: #f5f5f5;
+}
+
+.habit-manage-row.selected {
+  background: #FFD23F;
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+/* ============ SELECT CHECKBOX ============ */
+.select-check {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 2px solid #000;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 0.1s ease;
+}
+
+.select-check.checked {
+  background: #88D498;
+}
+
+/* ============ HABIT INFO ============ */
+.habit-dot {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 2px solid #000;
+  border-radius: 50%;
+}
+
+.habit-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.habit-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.habit-meta {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #555;
+}
+
+.inactive-badge {
+  padding: 3px 10px;
+  border: 2px solid #000;
+  background: #eee;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.chevron {
+  font-size: 20px;
+  color: #555;
+  font-weight: 700;
+}
